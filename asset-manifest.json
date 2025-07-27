@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/chart-demo/static/css/main.cf842673.css",
+    "main.js": "/chart-demo/static/js/main.207d23a5.js",
+    "index.html": "/chart-demo/index.html",
+    "main.cf842673.css.map": "/chart-demo/static/css/main.cf842673.css.map",
+    "main.207d23a5.js.map": "/chart-demo/static/js/main.207d23a5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cf842673.css",
+    "static/js/main.207d23a5.js"
+  ]
+}
