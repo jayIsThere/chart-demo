@@ -10,7 +10,7 @@ const LibraryComparisonDemo = () => {
   const [activeLibrary, setActiveLibrary] = useState('recharts');
   const [activeChart, setActiveChart] = useState('radar');
 
-  // D3 차트를 위한 ref들
+  // D3 charts ref
   const d3RadarRef = useRef();
   const d3BarRef = useRef();
   const d3GaugeRef = useRef();
@@ -19,7 +19,7 @@ const LibraryComparisonDemo = () => {
   const d3DotPlotRef = useRef();
   const d3SparklineRef = useRef(); // D3 스파크라인 ref 삭제
 
-  // 샘플 데이터
+  // samps
   const securityData = [
     { subject: 'Netzwerksicherheit', score: 85, fullMark: 100 },
     { subject: 'Datenschtuz', score: 72, fullMark: 100 },
@@ -57,7 +57,7 @@ const LibraryComparisonDemo = () => {
 
   const sparklineData = [10, 25, 18, 30, 22, 15, 28, 35, 20, 27];
 
-  // D3 레이더 차트
+  // D3 radar
   const createD3Radar = () => {
     if (!d3RadarRef.current) return;
 
@@ -77,7 +77,6 @@ const LibraryComparisonDemo = () => {
 
     const angleSlice = Math.PI * 2 / securityData.length;
 
-    // 격자 그리기
     const levels = 5;
     for (let i = 0; i < levels; i++) {
       const levelRadius = radius * (i + 1) / levels;
@@ -88,7 +87,6 @@ const LibraryComparisonDemo = () => {
         .attr("stroke-width", 1);
     }
 
-    // 축 그리기
     securityData.forEach((d, i) => {
       const angle = angleSlice * i - Math.PI / 2;
       const x = Math.cos(angle) * radius;
@@ -111,7 +109,6 @@ const LibraryComparisonDemo = () => {
         .text(d.subject);
     });
 
-    // 데이터 영역 그리기
     const radarLine = d3.line()
       .x((d, i) => {
         const angle = angleSlice * i - Math.PI / 2;
@@ -132,7 +129,7 @@ const LibraryComparisonDemo = () => {
       .attr("stroke-width", 2);
   };
 
-  // D3 바 차트
+  // D3 bar
   const createD3Bar = () => {
     if (!d3BarRef.current) return;
 
@@ -181,7 +178,7 @@ const LibraryComparisonDemo = () => {
       .call(d3.axisLeft(y));
   };
 
-  // D3 게이지 차트
+  // D3 gauage
   const createD3Gauge = () => {
     if (!d3GaugeRef.current) return;
 
@@ -204,12 +201,10 @@ const LibraryComparisonDemo = () => {
       .startAngle(-Math.PI / 2)
       .endAngle(Math.PI / 2);
 
-    // 배경 아크
     g.append("path")
       .attr("d", arc)
       .attr("fill", "#E5E7EB");
 
-    // 점수 아크
     const scoreArc = d3.arc()
       .innerRadius(radius - 20)
       .outerRadius(radius)
@@ -220,7 +215,6 @@ const LibraryComparisonDemo = () => {
       .attr("d", scoreArc)
       .attr("fill", "#3B82F6");
 
-    // 점수 텍스트
     g.append("text")
       .attr("text-anchor", "middle")
       .attr("y", -10)
@@ -235,7 +229,7 @@ const LibraryComparisonDemo = () => {
       .text("Punkt");
   };
 
-  // D3 그룹형 바 차트 (간단 구현)
+  // D3 gruoped bar
   const createD3GroupedBar = () => {
     if (!d3GroupedBarRef.current) return;
     const svg = d3.select(d3GroupedBarRef.current);
@@ -293,7 +287,7 @@ const LibraryComparisonDemo = () => {
       .call(d3.axisLeft(y).ticks(null, "s"));
   };
 
-  // D3 라인 차트
+  // D3 line
   const createD3Line = () => {
     if (!d3LineRef.current) return;
     const svg = d3.select(d3LineRef.current);
@@ -345,7 +339,7 @@ const LibraryComparisonDemo = () => {
       .attr("fill", "#3B82F6");
   };
 
-  // D3 닷 플롯
+  // D3 dot plot
   const createD3DotPlot = () => {
     if (!d3DotPlotRef.current) return;
     const svg = d3.select(d3DotPlotRef.current);
@@ -385,7 +379,7 @@ const LibraryComparisonDemo = () => {
       .attr("fill", "#3B82F6");
   };
 
-  // D3 스파크라인 (Nivo/Victory 스파크라인 삭제 요청으로, D3 스파크라인은 유지)
+  // D3 sparkline
   const createD3Sparkline = () => {
     if (!d3SparklineRef.current) return;
     const svg = d3.select(d3SparklineRef.current);
@@ -418,7 +412,7 @@ const LibraryComparisonDemo = () => {
       .attr("d", line);
   };
 
-  // Nivo 스타일 레이더 차트 시뮬레이션
+  // Nivo radar
   const NivoRadarChart = () => {
     const size = 300;
     const center = size / 2;
@@ -430,7 +424,7 @@ const LibraryComparisonDemo = () => {
     return (
       <div className="relative w-80 h-80 mx-auto">
         <svg width={size} height={size} className="absolute inset-0">
-          {/* 격자 원들 */}
+         
           {Array.from({ length: levels }, (_, i) => (
             <circle
               key={i}
@@ -444,7 +438,7 @@ const LibraryComparisonDemo = () => {
             />
           ))}
 
-          {/* 축 선들 */}
+        
           {securityData.map((_, i) => {
             const angle = i * angleStep - Math.PI / 2;
             const x = center + Math.cos(angle) * radius;
@@ -462,7 +456,7 @@ const LibraryComparisonDemo = () => {
             );
           })}
 
-          {/* 데이터 영역 */}
+        
           <polygon
             points={securityData.map((d, i) => {
               const angle = i * angleStep - Math.PI / 2;
@@ -477,7 +471,6 @@ const LibraryComparisonDemo = () => {
             className="animate-pulse"
           />
 
-          {/* 데이터 포인트 */}
           {securityData.map((d, i) => {
             const angle = i * angleStep - Math.PI / 2;
             const distance = (radius * d.score) / 100;
@@ -496,7 +489,6 @@ const LibraryComparisonDemo = () => {
           })}
         </svg>
 
-        {/* 레이블들 */}
         {securityData.map((d, i) => {
           const angle = i * angleStep - Math.PI / 2;
           const x = center + Math.cos(angle) * (radius + 30);
@@ -512,7 +504,6 @@ const LibraryComparisonDemo = () => {
           );
         })}
 
-        {/* Nivo 스타일 애니메이션 인디케이터 */}
         <div className="absolute top-2 right-2 text-xs text-blue-500 font-bold animate-bounce">
           Nivo Style
         </div>
@@ -520,7 +511,7 @@ const LibraryComparisonDemo = () => {
     );
   };
 
-  // Victory 스타일 레이더 차트 시뮬레이션
+  // Victory radar
   const VictoryRadarChart = () => {
     const size = 300;
     const center = size / 2;
@@ -530,10 +521,9 @@ const LibraryComparisonDemo = () => {
     return (
       <div className="relative w-80 h-80 mx-auto">
         <svg width={size} height={size} className="absolute inset-0">
-          {/* Victory 스타일 배경 */}
-          <rect width={size} height={size} fill="#fafafa" rx="8" />
 
-          {/* 격자 */}
+      <rect width={size} height={size} fill="#fafafa" rx="8" />
+      
           {Array.from({ length: 5 }, (_, i) => (
             <circle
               key={i}
@@ -546,7 +536,6 @@ const LibraryComparisonDemo = () => {
             />
           ))}
 
-          {/* 축 */}
           {securityData.map((_, i) => {
             const angle = i * angleStep - Math.PI / 2;
             const x = center + Math.cos(angle) * radius;
@@ -564,7 +553,6 @@ const LibraryComparisonDemo = () => {
             );
           })}
 
-          {/* Victory 스타일 데이터 영역 */}
           <polygon
             points={securityData.map((d, i) => {
               const angle = i * angleStep - Math.PI / 2;
@@ -578,7 +566,6 @@ const LibraryComparisonDemo = () => {
             strokeWidth="3"
           />
 
-          {/* Victory 스타일 포인트 */}
           {securityData.map((d, i) => {
             const angle = i * angleStep - Math.PI / 2;
             const distance = (radius * d.score) / 100;
@@ -598,7 +585,6 @@ const LibraryComparisonDemo = () => {
           })}
         </svg>
 
-        {/* Victory 스타일 레이블 */}
         {securityData.map((d, i) => {
           const angle = i * angleStep - Math.PI / 2;
           const x = center + Math.cos(angle) * (radius + 35);
@@ -621,7 +607,7 @@ const LibraryComparisonDemo = () => {
     );
   };
 
-  // Nivo 스타일 바 차트
+  // Nivo bar
   const NivoBarChart = () => (
     <div className="w-full h-80 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-4 relative overflow-hidden">
       <div className="flex items-end justify-around h-full">
@@ -648,7 +634,7 @@ const LibraryComparisonDemo = () => {
     </div>
   );
 
-  // Victory 스타일 바 차트
+  // Victory bar
   const VictoryBarChart = () => (
     <div className="w-full h-80 bg-gray-50 rounded-lg p-4 relative">
       <div className="flex items-end justify-around h-full">
@@ -675,7 +661,7 @@ const LibraryComparisonDemo = () => {
     </div>
   );
 
-  // Nivo 스타일 라인 차트
+  // Nivo line
   const NivoLineChart = () => (
     <div className="w-full h-80 bg-gradient-to-br from-purple-50 to-blue-50 rounded-lg p-6 relative">
       <svg width="100%" height="100%" viewBox="0 0 100 100" className="overflow-visible">
@@ -686,7 +672,6 @@ const LibraryComparisonDemo = () => {
           </linearGradient>
         </defs>
 
-        {/* 격자 */}
         {Array.from({ length: lineChartData.length }, (_, i) => {
           const x = (i * 100) / (lineChartData.length - 1);
           return (
@@ -741,7 +726,7 @@ const LibraryComparisonDemo = () => {
     </div>
   );
 
-  // Victory 스타일 라인 차트
+  // Victory line
   const VictoryLineChart = () => (
     <div className="w-full h-80 bg-white rounded-lg p-6 relative">
       <svg width="100%" height="100%" className="overflow-visible" viewBox="0 0 100 100">
@@ -782,7 +767,7 @@ const LibraryComparisonDemo = () => {
   );
 
 
-  // Nivo 스타일 게이지 차트 (시뮬레이션)
+  // Nivo gagauge
   const NivoGaugeChart = () => (
     <div className="flex justify-center items-center h-48 relative">
       <div className="w-48 h-48 relative">
@@ -799,7 +784,7 @@ const LibraryComparisonDemo = () => {
     </div>
   );
 
-  // Victory 스타일 게이지 차트 (시뮬레이션)
+  // Victory gagauge
   const VictoryGaugeChart = () => (
     <div className="flex justify-center items-center h-48 relative">
       <div className="w-48 h-48 relative">
@@ -816,7 +801,7 @@ const LibraryComparisonDemo = () => {
     </div>
   );
 
-  // Nivo/Victory 스타일 그룹형 바 차트 (시뮬레이션)
+  // Nivo/Victory grouped bar
   const NivoGroupedBarChart = () => (
     <div className="w-full h-80 bg-gradient-to-br from-green-50 to-teal-50 rounded-lg p-4 relative overflow-hidden">
       <div className="flex items-end justify-around h-full">
@@ -879,7 +864,7 @@ const LibraryComparisonDemo = () => {
     </div>
   );
 
-  // Nivo/Victory 스타일 닷 플롯 (시뮬레이션)
+  // Nivo/Victory dot plot
   const NivoDotPlot = () => (
     <div className="w-full h-80 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 relative">
       <div className="flex flex-col justify-around h-full">
@@ -937,7 +922,7 @@ const LibraryComparisonDemo = () => {
     </div>
   );
 
-  // Nivo/Victory 스타일 스파크라인 컴포넌트 전체 삭제됨
+  // Nivo/Victory spartline (depricated)
   // const NivoSparkline = () => (...)
   // const VictorySparkline = () => (...)
 
@@ -949,7 +934,7 @@ const LibraryComparisonDemo = () => {
       else if (activeChart === 'groupedBar') createD3GroupedBar();
       else if (activeChart === 'line') createD3Line();
       else if (activeChart === 'dotplot') createD3DotPlot();
-      else if (activeChart === 'sparkline') createD3Sparkline(); // D3 스파크라인은 유지
+      else if (activeChart === 'sparkline') createD3Sparkline();
     }
   }, [activeLibrary, activeChart]);
 
@@ -1089,7 +1074,7 @@ const LibraryComparisonDemo = () => {
             return <NivoLineChart />;
           case 'dotplot':
             return <NivoDotPlot />;
-          // case 'sparkline': // Nivo Sparkline 제거
+          // case 'sparkline': // Nivo Sparkline depricated
           //   return <NivoSparkline />;
           default:
             return null;
@@ -1108,7 +1093,7 @@ const LibraryComparisonDemo = () => {
             return <VictoryLineChart />;
           case 'dotplot':
             return <VictoryDotPlot />;
-          // case 'sparkline': // Victory Sparkline 제거
+          // case 'sparkline': // Victory Sparkline depricated
           //   return <VictorySparkline />;
           default:
             return null;
@@ -1130,7 +1115,7 @@ const LibraryComparisonDemo = () => {
             key={lib}
             onClick={() => {
               setActiveLibrary(lib);
-              setActiveChart('radar'); // 라이브러리 변경 시 기본 차트로 리셋
+              setActiveChart('radar');
             }}
             className={`px-6 py-3 rounded-full text-lg font-semibold shadow-md transition-all duration-300
               ${activeLibrary === lib
@@ -1154,7 +1139,7 @@ const LibraryComparisonDemo = () => {
           { id: 'groupedBar', name: 'Grupped Bar' },
           { id: 'line', name: 'Line' },
           { id: 'dotplot', name: 'Dotplot' },
-          // activeLibrary가 d3 또는 recharts일 때만 스파크라인을 보여주도록 조건부 렌더링
+          
           ...((activeLibrary === 'd3' || activeLibrary === 'recharts') ? [{ id: 'sparkline', name: 'Sparkline' }] : [])
         ].map((chart) => (
           <button
